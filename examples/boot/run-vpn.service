@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=forking
-ExecStartPre=sh -c 'VPN_DIR="$(find /mnt/data/split-vpn /data/split-vpn -maxdepth 1 -type d -name "split-vpn" 2>/dev/null | head -n1)"; rm -f /etc/split-vpn; ln -sf "$VPN_DIR" /etc/split-vpn'
+ExecStartPre=sh -c 'VPN_DIR="$(find /mnt/data/split-vpn /data/split-vpn -maxdepth 1 -type d -name "split-vpn" 2>/dev/null | head -n1)"; rm -f /etc/split-vpn; ln -sf "$VPN_DIR" /etc/split-vpn; /data/split-vpn/ipsets/add_dnsmasq_gfwlist_ipset.sh; /data/split-vpn/ipsets/add-dnsmasq-ipset.sh'
 ExecStart=/etc/split-vpn/run-vpn.sh
 Restart=on-failure
 RestartSec=5
